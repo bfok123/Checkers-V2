@@ -37,11 +37,11 @@ public class Checkers extends JFrame {
 	
 	// called right after a piece is moved
 	public void onMove() {
-		if(playerTop.hasNoPieces()) {
+		if(playerTop.hasNoPieces() || playerTop.hasNoMove()) {
 			onWin(playerBottom);
 			return; // stop the game
 		}
-		else if(playerBottom.hasNoPieces()) {
+		else if(playerBottom.hasNoPieces() || playerBottom.hasNoMove()) {
 			onWin(playerTop);
 			return; // stop the game
 		}

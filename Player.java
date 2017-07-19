@@ -19,6 +19,18 @@ public class Player {
 		return false;
 	}
 	
+	// check if this player has no legal moves/jumps to make (results in loss)
+	public boolean hasNoMove() {
+		boolean hasNoMove = true;
+		for(Piece p : pieces) {
+			if(p.getPossibleMoveSquares().size() > 0 || p.getPossibleJumpSquares().size() > 0) {
+				hasNoMove = false;
+			}
+		}
+		
+		return hasNoMove;
+	}
+	
 	// adds a piece to this player
 	public void addPiece(Piece p) {
 		pieces.add(p);

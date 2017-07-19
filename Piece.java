@@ -69,11 +69,11 @@ public class Piece extends JButton implements ActionListener {
 		newSquare.addPiece(this);
 		
 		if(newSquare.getCol() - 2 == col || newSquare.getCol() + 2 == col) {
-			jumped = true;
 			int opponentNum = getPlayerNum() == 1 ? -1 : 1;
 			Square jumpedSquare = game.getSquareAt((row + newSquare.getRow()) / 2, (col + newSquare.getCol()) / 2);
 			game.playerRemovePiece(opponentNum, jumpedSquare.getPiece());
 			jumpedSquare.removePiece();
+			jumped = true;
 		}
 		
 		row = newSquare.getRow();
@@ -83,12 +83,14 @@ public class Piece extends JButton implements ActionListener {
 		
 		game.onMove();
 		
-		// if this piece just jumped and has another jump available
-		if(jumped && possibleJumpSquares.size() > 0) {
-			jumped = false;
-		} else {
+		// if this piece just jumped and has another jump available, do not switch the player turn
+		if(jumped && possibleJumpSquares.size() > 0);
+		// otherwise switch the player turn
+		else {
 			game.switchPlayerTurn();
 		}
+		
+		jumped = false;
 	}
 	
 	// checks to see if this piece can become a king
@@ -136,11 +138,6 @@ public class Piece extends JButton implements ActionListener {
 	// returns true if this piece just jumped, otherwise false
 	public boolean jumped() {
 		return jumped;
-	}
-	
-	// sets jumped to false
-	public void resetJumped() {
-		jumped = false;
 	}
 	
 	// deselects this piece
